@@ -4,9 +4,9 @@ import React from 'react'
 const PostBody = () => {
   return (
     <>
-    <div>헤더 들어갈 곳입니다</div>
+
     </>
   )
 }
 
-export default PostBody
+export default PostBody;

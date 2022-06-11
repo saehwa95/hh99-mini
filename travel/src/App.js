@@ -7,13 +7,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import Main from "./pages/Main";
 
 // import Post from "./pages/Post";
-// import PostDetail from "./pages/PostDetail";
-// import PostRemove from "./pages/PostRemove";
+
+// 컴포넌트 작성 확인때문에 지금만 임포트
+import PostDetail from "./pages/PostDetail";
+import PostUpdate from "./pages/PostUpdate";
 
 // import SignUp from "./pages/SignUp";
 
-// 컴포넌트 작성 확인때문에 지금만 임포트
-import PostBody from "./Component/PostBody";
+
+
 
 function App() {
   return (
@@ -25,11 +27,11 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} /> */}
 
-          {/* <Route path="/Post" element={<Post />} />
-          <Route path="/PostDetail" element={<PostDetail />} />
-          <Route path="/PostRemove" element={<PostRemove />} /> */}
+          {/* <Route path="/Post" element={<Post />} /> */}
+          <Route path="/" element={<PostDetail />} />
+          <Route path="/PostUpdate" element={<PostUpdate />} />
 
-          <Route path="/" element={<PostBody />} />
+
         </Routes>
       </BrowserRouter>
     </>
