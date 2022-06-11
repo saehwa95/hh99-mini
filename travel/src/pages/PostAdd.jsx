@@ -1,4 +1,4 @@
-//게시물 수정 페이지
+//게시물 작성 페이지
 
 import React from 'react'
 import Header from '../components/Header'
@@ -10,11 +10,13 @@ import './PostAdd.css'
 import {Link} from 'react-router-dom'
 
 
-const PostUpdate = () => {
+const Post = () => {
+
+  
   return (
     <>
-        <Header />
-        <div className='container'>
+    <Header />
+      <div className='container'>
       <Image />
       <span>제목</span>
       <Input />
@@ -22,15 +24,14 @@ const PostUpdate = () => {
       <Content />
       </div>
 
-        <div className='footer'>
-          <Link to={`/Post`}>
-          <Button>수정 완료</Button>
-          </Link>
-        </div>
+      <div className='footer'>
+        <Link to = {`/Main`}>
+        <Button>작성 완료</Button>
+        </Link>
+      </div>
 
-
-    </>
+  </>
   )
 }
 
-export default PostUpdate;
+export default Post;
