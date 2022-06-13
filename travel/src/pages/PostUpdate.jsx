@@ -1,34 +1,45 @@
 //게시물 수정 페이지
 
 import React from 'react'
-import Header from '../components/Header'
-import Image from '../element/Image'
-import Input from '../element/Input'
-import Content from '../element/Content'
-import Button from '../element/Button'
-import './PostAdd.css'
+import './Post.css'
 import {Link} from 'react-router-dom'
-
 
 const PostUpdate = () => {
   return (
     <>
-        <Header />
-        <div className='container'>
-      <Image />
-      <span>제목</span>
-      <Input />
-      <span>내용</span>
-      <Content />
-      </div>
+      <h1>헤더 들어갈 곳입니다</h1>
+      <div>
 
-        <div className='footer'>
-          <Link to={`/Post`}>
-          <Button>수정 완료</Button>
-          </Link>
+        <div className='container'>
+          <div className='imgBox'>
+          </div>
+          <div className='imgUpload'>
+            <input type="file" />
+          </div>
+
+          <div className='wrap'>
+            <div className='title'>
+              <span>제목</span>
+              <input type="text" />
+            </div>
+
+            <div className='content'>
+              <span>내용</span>
+              <textarea name="textarea" rows="10" cols="50" >힘내보자</textarea>
+            </div>
+
+          </div>
+
         </div>
 
+        <div className='footer'>
+          <Link to = {`/`}>
+            <button>수정완료</button>
+          </Link>
+          
+        </div>
 
+      </div>
     </>
   )
 }
