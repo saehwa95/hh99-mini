@@ -52,6 +52,7 @@ export const __addPost = (payload) => async (dispatch, getState) => {
         Authorization : myToken
       }});
       console.log(response)
+      window.alert('작성 완료')
       // dispatch(addPost(response.data));  54번째 콘솔 확인 후 들어오는 값에 맞춰서 55번째줄 작성하기!
     }
     catch(error){
@@ -69,6 +70,7 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
       }
     });
     dispatch(deletePost(payload));
+    window.alert('삭제 완료!!')
   }
   catch(error){
     console.log(error)
@@ -76,7 +78,6 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) => {
-  const myToken = getCookie("Authorization");
   try{
     const response = await axios.patch(`http://15.164.50.132/api/travels/${index}`, {
       title: payload.title, 
@@ -84,10 +85,11 @@ export const __updatePost = (payload, index) => async (dispatch, getState) => {
       imgUrl : payload.imgUrl},
       {
       headers : {
-        Authorization : myToken
+        Authorization : payload.token
       }
     });
     console.log(response) 
+    window.alert('수정 완료!!')
     // dispatch(updatePost(response)) 90번줄 콘솔 확인 후 91번째 줄 넣어주기
   }
   catch(error){
@@ -112,13 +114,13 @@ const postReducer = (state = initialState, action) => {
     case LOAD_POST : return { ...state, posts : action.payload }
 
     case DELETE_POST:
-      const newDeletedPost = state.posts.filter((value, index) => { return value.postId!== Number(action.payload);
+      const newDeletedPost = state.posts.filter((value, index) => { return value.boardId!== Number(action.payload);
       }); return { ...state, list: [...newDeletedPost] };
 
     case UPDATE_POST:
       const newChangePost = state.posts.map((value) => {
           //액션.페이로드에 같은 아이디 값이면 업데이트 진행!! 그게 아니면 원래 벨류 값 준다.
-        return value.postId === Number(action.payload.postId) ? action.payload : value;
+        return value.boardId === Number(action.payload.boardId) ? action.payload : value;
       });
       return { ...state, list: newChangePost };
 

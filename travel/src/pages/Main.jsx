@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { __loadPosts } from "../redux/modules/post";
+// import { __loadPosts } from "../redux/modules/post";
 
 const Main = () => {
   const navigate = useNavigate();
