@@ -1,33 +1,51 @@
 //게시물 작성 페이지
 
-import React from 'react'
+import React, { useRef } from 'react'
 import Header from '../components/Header'
-import Image from '../element/Image'
+import Image from '../components/ImageUpload'
 import Input from '../element/Input'
 import Content from '../element/Content'
 import Button from '../element/Button'
 import './PostAdd.css'
-import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { __addPost } from '../redux/modules/post'
+import { getCookie } from '../shared/Cookie'
 
 
 const Post = () => {
 
-  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const titleRef = useRef(null)
+  const contentRef = useRef(null)
+
+  const addPost = (e) => {
+    dispatch(__addPost({
+      title : titleRef.current.value,
+      content : contentRef.current.value,
+      // imgUrl : imgUrl.current.value,
+      token : getCookie('token')
+    }))
+    window.alert('작성 완료')
+    navigate('/Main')
+  }
+
   return (
     <>
     <Header />
       <div className='container'>
       <Image />
       <span>제목</span>
-      <Input />
+      <Input ref={titleRef}/>
       <span>내용</span>
-      <Content />
+      <Content ref={contentRef}/>
       </div>
 
       <div className='footer'>
-        <Link to = {`/Main`}>
-        <Button>작성 완료</Button>
-        </Link>
+
+        <Button onClick={addPost}>작성 완료</Button>
+
       </div>
 
   </>

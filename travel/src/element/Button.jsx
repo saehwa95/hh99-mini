@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 
-export const Button = styled.button`
+const Button = styled.button`
 width: 150px;
 margin-right: 100px;
 border: 2px solid;
