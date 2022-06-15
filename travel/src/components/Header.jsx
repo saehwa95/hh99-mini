@@ -1,62 +1,60 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { deleteCookie } from '../shared/Cookie';
+import { deleteCookie } from "../shared/Cookie";
 
-import Buttons from '../elements/Buttons';
-import { useNavigate } from 'react-router-dom';
+import Buttons from "../elements/Buttons";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { actionCreators as userActions } from '../redux/modules/user';
-
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = (props) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    // const user = useSelector(state => state.user.user)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const user = useSelector(state => state.user.user)
 
-    return (
-
-        <HeaderContainer>
-            <Link to='/Main'>
-                <img src='logo_1.png'
-                    back_size="100% 100%"
-                    height="100px"
-                    alt='logo' />
-            </Link>
-            <ButtonContainer>
-                <Buttons
-                    text-size="16px"
-                    width="120px"
-                    bg="#96663F"
-                    _onClick={() => {
-                        dispatch(userActions.logOut());
-                        navigate('/')
-                        deleteCookie('token')                         
-                    }}
-                >
-                    <span size="20px">로그아웃</span>
-                </Buttons>
-            </ButtonContainer>
-        </HeaderContainer>
-    );
+  return (
+    <>
+      <HeaderContainer>
+        {/* <ButtonContainer> */}
+        <Link to="/Main" style={{ height: "100%", marginLeft: "10px" }}>
+          <img
+            src="logo_3.png"
+            back_size="100% 100%"
+            alt="logo"
+            style={{ height: "100%" }}
+          />
+        </Link>
+        <Buttons
+          style={{ width: "100px", padding: "10px" }}
+          _onClick={() => {
+            dispatch(userActions.logOut());
+            navigate("/");
+            deleteCookie("token");
+          }}
+        >
+          logout
+        </Buttons>
+        {/* </ButtonContainer> */}
+      </HeaderContainer>
+    </>
+  );
 };
 
 const HeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 90px;
-    border-bottom: 5px solid #EC524B;
-    background: #F9F7CF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  border-bottom: 3px solid #2e2727;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 40px);
+  padding: 20px;
+  height: 60px
 `;
 
-const ButtonContainer = styled.div`
-    display: flex;
-    min-width: 133px;
-`;
-
-
-
-
-export default Header
+export default Header;

@@ -21,9 +21,9 @@ function App() {
           <Route path="/Main" element={<Main />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/PostAdd" element={<PostAdd />} />
-          <Route path="/PostDetail" element={<PostDetail />} />
-          <Route path="/PostUpdate" element={<PostUpdate />} />
+          <Route path="/Post/Add" element={<PostAdd />} />
+          <Route path="/Post/Detail/:postboardId" element={<PostDetail />} />
+          <Route path="/Post/Update/:postboardId" element={<PostUpdate />} />
           <Route path="/Error" element={<Error />} />
         </Routes>
       </BrowserRouter>
