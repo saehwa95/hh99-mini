@@ -6,6 +6,7 @@ const ADD_POST = "ADD_POST"
 const LOAD_POST = "LOAD_POST"
 const DELETE_POST = "DELETE_POST"
 const UPDATE_POST = "UPDATE_POST"
+const LOAD_DETAIL = "LOAD_DETAIL"
 
 
 //액션 크리에이터
@@ -25,9 +26,14 @@ const updatePost = (payload) => {
   return { type: UPDATE_POST, payload }
 }
 
+const loadDetail = (payload) => {
+  return {type: LOAD_DETAIL, payload}
+}
+
 
 //thunk 함수 작성 (thunk 함수는 async(여기 들어오는 값은 함수!! 변수 아님!!!))
 export const __loadPosts = (token) => async (dispatch, getState) => {
+  console.log(token)
   try {
     const response = await axios.get("http://15.164.50.132/api/travel", {
       headers: {
@@ -46,12 +52,12 @@ export const __loadPosts = (token) => async (dispatch, getState) => {
 export const __addPost = (payload) => async (dispatch, getState) => {
   console.log(payload)
   const myToken = getCookie("Authorization");
-
+  console.log(myToken)
   try {
     const response = await axios.post("http://15.164.50.132/api/travels", {
       title: payload.title,
       content: payload.content,
-      image: payload.imgUrl
+      image: payload.image
     },
       {
         headers: {
@@ -85,22 +91,38 @@ export const __deletePost = (payload) => async (dispatch, getState) => {
 }
 
 export const __updatePost = (payload, index) => async (dispatch, getState) => {
+  console.log(payload)
   try {
-    const response = await axios.patch(`http://15.164.50.132/api/travels/${index}`, {
+    const response = await axios.patch(`http://15.164.50.132/api/travels/${payload.boardId}`, {
       title: payload.title,
       content: payload.content,
-      imgUrl: payload.imgUrl
+      image: payload.imgUrl
     },
       {
         headers: {
           Authorization: payload.token
         }
       });
-    console.log(response)
+    console.log(payload.boardId)
     window.alert('수정 완료!!')
-    // dispatch(updatePost(response)) 90번줄 콘솔 확인 후 91번째 줄 넣어주기
+    dispatch(updatePost(payload))
   }
   catch (error) {
+    console.log(error)
+  }
+}
+
+export const __loadDetail = (payload) => async (dispatch, getState) => {
+  console.log(payload)
+  try {
+    const response = await axios.get(`http://15.164.50.132/api/travels/${payload.boardId}`, {
+      headers: {
+        Authorization: payload.token
+      }
+    });
+    console.log(response)
+    dispatch(loadDetail(response.data))
+  } catch (error) {
     console.log(error)
   }
 }
@@ -109,12 +131,15 @@ export const __updatePost = (payload, index) => async (dispatch, getState) => {
 const initialState = {
   posts: [],
   loading: false,
-  error: null
+  error: null,
+  detail : null
 };
+
+
 
 //리듀서
 const postReducer = (state = initialState, action) => {
-
+console.log(action)
   switch (action.type) {
 
     case ADD_POST: return { ...state, posts: [...state.posts, action.payload] }
@@ -131,11 +156,15 @@ const postReducer = (state = initialState, action) => {
 
 
     case UPDATE_POST:
-      const newChangePost = state.posts.map((value) => {
-        //액션.페이로드에 같은 아이디 값이면 업데이트 진행!! 그게 아니면 원래 벨류 값 준다.
-        return value.boardId === Number(action.payload.boardId) ? action.payload : value;
-      });
-      return { ...state, posts: newChangePost };
+      return {...state, detail : action.payload}
+      // const newChangePost = state.posts.map((value) => {
+      //   //액션.페이로드에 같은 아이디 값이면 업데이트 진행!! 그게 아니면 원래 벨류 값 준다.
+      //   return value.boardId === Number(action.payload.boardId) ? action.payload : value;
+      // });
+      // return { ...state, posts: newChangePost };
+
+      case LOAD_DETAIL:
+        return {...state, detail : action.payload}
 
     default:
       return state;

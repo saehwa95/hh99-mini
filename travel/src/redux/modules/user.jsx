@@ -52,8 +52,8 @@ const loginDB = (email, password) => {
             token: response.data.token,
           })
         );
-        setCookie("Authorization", response.data.token.split(" ")[1]);
-        setCookie("email", email);
+        setCookie("Authorization", response.data.token);
+        setCookie("nickname", response.data.nickname);
       })
       .catch((error) => {
         window.alert("아이디 또는 비밀번호를 확인해주세요.");
